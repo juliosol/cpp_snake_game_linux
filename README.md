@@ -18,3 +18,7 @@ After that, you can run
 ## Game controls
 
 To move the snake, you do: w for up, s for down, d for right and a for left.
+
+## Videos
+
+You can find a video with the basic version of the game [here](https://www.youtube.com/watch?v=yTTPzmf0XLE&feature=youtu.be)
