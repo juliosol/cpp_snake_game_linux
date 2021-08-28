@@ -23,7 +23,7 @@ using namespace std;
 #define FOOD 1
 #define SNAKE_LENGTH 4
 
-// We will more global variables to let the whole environment know we are referring 
+// We will have more global variables to let the whole environment know we are referring 
 
 #define SCORE -6
 #define GAMEOVER -5
@@ -42,11 +42,9 @@ using namespace std;
 static int dx[5] = {1, 0, -1, 0};
 static int dy[5] = {0, -1, 0, 1};
 
-int item = NOTHING; // Current item the snake has.
-int input = RIGHT;
-int bytesWaiting, i;
-const char* clearcommand = "clear";
-unsigned int microseconds;
+// Define global variables for starting menu
+#define MENUX 25
+#define MENUY 25
 
 void gotoxy(int x,int y)
 {
@@ -76,9 +74,11 @@ int _kbhit() {
 }
 
 void clear_background(void){
+    // Method to clear the screen.
     system(clearcommand);
 }
 
+// Method to 
 int oppositeDirection(int input1, int input2)
 {
     if (input1 == RIGHT && input2 == LEFT)
@@ -92,15 +92,60 @@ int oppositeDirection(int input1, int input2)
     return 0;
 }
 
+// Object representing coordinates
 struct Coordinate
 {
     int x;
     int y;
 };
 
+class menu
+{
+    private:
+        int ground[MAX][MAX];
+    public:
+        void initMenu();
+        void menuInput(const char k);
+};
+
+void menu::initMenu()
+{
+    // Setting up screen and and borders.
+    int i,j;
+    for (i=0; i<MAX; i++)
+        for (j=0; j<MAX; j++)
+            ground[i][j] = 0;
+
+    for (i = 0; i <= WIDTH + 1; i++)
+    {
+        ground[0][i] = WALL;
+        ground[HEIGHT + 1][i] = WALL;
+    }
+    
+    for (i = 0; i <= HEIGHT + 1; i++)
+    {
+        ground[i][0] = WALL;
+        ground[i][WIDTH+1] = WALL;
+    }
+
+    for (i=15; i<=18; i++)
+    {
+        for (j=15; j<=18; j++){
+            ground[i][j] = WALL;
+        }
+    }
+
+    //SNAKE GAME
+    //START
+    //EXIT
+
+    
+}
+
+
+// Object representing snake object.
 class snake
 {
-
 private:
     int length;
     int foodCounter;
@@ -116,8 +161,8 @@ public:
     //void updateBackground();
     int getFoodCounter();
     void drawBckgrd();
-    void drawStarterMenu(int menuDelay);
-    void drawResultWindow();
+    //void drawStarterMenu(int menuDelay);
+    //void drawResultWindow();
 };
 
 void snake::initSnake()
@@ -285,15 +330,15 @@ void snake::inputReading(const char k)
     {
         input = RIGHT;
     }
-    if (k == 'w' || k == 8)
+    if (k == 'w' || k == '8')
     {
         input = UP;
     }
-    if (k == 'a' || k == 4)
+    if (k == 'a' || k == '4')
     {
         input = LEFT;
     }
-    if (k == 's' || k == 2)
+    if (k == 's' || k == '2')
     {
         input = DOWN;
     }
@@ -306,7 +351,12 @@ int main()
     char k;
     microseconds = 100000;
 	srand(time(NULL));
-	snake serpe;
+
+    menu Menu;
+    Menu.initMenu();
+    
+
+	/*snake serpe;
 	serpe.initGround();
 	serpe.initSnake();
     serpe.updateFood();
@@ -327,7 +377,7 @@ int main()
         }
     } while (item >= 0 && input != EXIT);
 
-    serpe.drawBckgrd();
+    serpe.drawBckgrd();*/
 
     return 0;
 }
